@@ -13,8 +13,12 @@
 -- You should have received a copy of the GNU Affero General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+module = {}
+module.fzf_path = "fzf"
+module.fzf_args = ""
+
 vis:command_register("fzf", function(argv, force, win, selection, range)
-    local command = "fzf " .. table.concat(argv, " ")
+    local command = module.fzf_path .. " " .. module.fzf_args .. " " .. table.concat(argv, " ")
 
     local file = io.popen(command)
     local output = file:read()
@@ -23,16 +27,18 @@ vis:command_register("fzf", function(argv, force, win, selection, range)
     if status == 0 then 
         vis:command(string.format("e '%s'", output))
     elseif status == 1 then
-        vis:info(string.format("fzf: No match. Command %s exited with return value %i." , command, status))
+        vis:info(string.format("fzf-open: No match. Command %s exited with return value %i." , command, status))
     elseif status == 2 then
-        vis:info(string.format("fzf: Error. Command %s exited with return value %i." , command, status))
+        vis:info(string.format("fzf-open: Error. Command %s exited with return value %i." , command, status))
     elseif status == 130 then
-        vis:info(string.format("fzf: Interrupted. Command %s exited with return value %i" , command, status))
+        vis:info(string.format("fzf-open: Interrupted. Command %s exited with return value %i" , command, status))
     else
-        vis:info(string.format("fzf: Unknown exit status %i. command %s exited with return value %i" , command, status, status))
+        vis:info(string.format("fzf-open: Unknown exit status %i. command %s exited with return value %i" , status, command, status, status))
     end
 
     vis:feedkeys("<vis-redraw>")
 
     return true;
 end)
+
+return module
