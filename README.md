@@ -10,7 +10,7 @@ In vis:
 
 In visrc.lua:
 
-``
+```lua
 plugin_vis_open =require('plugins/vis-fzf-open/fzf-open')
 
 -- Path to the fzf executable (default: "fzf")
@@ -18,5 +18,5 @@ plugin_vis_open.fzf_path = "fzf"
 
 -- Arguments passed to fzf (defaul: "")
  plugin_vis_open.fzf_args = "-q '!.class '"
-``
+```
 
