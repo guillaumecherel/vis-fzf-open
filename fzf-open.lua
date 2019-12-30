@@ -19,7 +19,10 @@ module.fzf_args = ""
 
 vis:command_register("fzf", function(argv, force, win, selection, range)
     local command = string.gsub([[
-            $fzf_path $fzf_args $args
+            $fzf_path \
+                --header="Enter:edit,^s:split,^v:vsplit" \
+                --expect="ctrl-s,ctrl-v" \
+                $fzf_args $args
         ]],
         '%$([%w_]+)', {
             fzf_path=module.fzf_path,
@@ -29,12 +32,20 @@ vis:command_register("fzf", function(argv, force, win, selection, range)
     )
 
     local file = io.popen(command)
-    local output = file:read()
+    local output = {}
+    for line in file:lines() do
+        table.insert(output, line)
+    end
     local success, msg, status = file:close()
 
-    if status == 0 then 
-        -- vis:command(string.format("e '%s'", output))
-        vis:feedkeys(string.format(":e '%s'<Enter>", output))
+    if status == 0 then
+        local action = 'e'
+
+        if     output[1] == 'ctrl-s' then action = 'split'
+        elseif output[1] == 'ctrl-v' then action = 'vsplit'
+        end
+
+        vis:feedkeys(string.format("%s '%s'<Enter>", action, output[2]))
     elseif status == 1 then
         vis:info(
             string.format(
