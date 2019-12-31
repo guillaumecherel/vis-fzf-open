@@ -4,13 +4,19 @@ Use [fzf](https://github.com/junegunn/fzf) to open files in [vis](https://github
 
 ## Usage
 
-In vis:
+In `vis`:
 - `:fzf`: search all files in the current sub-tree.
-- You can pass arguments to fzf, e.g. : `:fzf -p !.class` 
+- You can pass arguments to fzf, e.g. : `:fzf -p !.class`
+
+While in `fzf`:
+
+- `<Enter>` to open the selected file in current window
+- `<C-s>` to open the selected file in a horizontal split
+- `<C-v>` to open the selected file in a vertical split
 
 ## Configuration
 
-In visrc.lua:
+In `visrc.lua`:
 
 ```lua
 plugin_vis_open =require('plugins/vis-fzf-open/fzf-open')
