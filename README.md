@@ -27,6 +27,11 @@ plugin_vis_open.fzf_path = (
 )
 -- Arguments passed to fzf (default: "")
 plugin_vis_open.fzf_args = "-q '!.class ' --height=40%"
+
+-- Mapping configuration example
+vis.events.subscribe(vis.events.INIT, function()
+    vis:command('map! normal <C-p> :fzf<Enter>')
+end)
 ```
 
 Complex example for `plugin_vis_open.fzf_args`:
@@ -48,8 +53,7 @@ my_fzf_args = string.gsub([[
         rougify {} ||
         cat {}
     ) 2> /dev/null | head -1000"
-]],
-'%$([%w_]+)', {
+]], '%$([%w_]+)', {
     my_fzf_key_bindings=table.concat({
         "alt-j:preview-down",
         "alt-k:preview-up",
