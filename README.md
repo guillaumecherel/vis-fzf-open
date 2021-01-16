@@ -19,7 +19,7 @@ While in `fzf`:
 In `visrc.lua`:
 
 ```lua
-plugin_vis_open = require('plugins/vis-fzf-open/fzf-open')
+plugin_vis_open = require('plugins/vis-fzf-open')
 
 -- Path to the fzf executable (default: "fzf")
 plugin_vis_open.fzf_path = (
