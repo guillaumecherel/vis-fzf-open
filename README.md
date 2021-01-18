@@ -1,3 +1,5 @@
+**This project has a new home. Development continues at https://git.sr.ht/~mcepl/vis-fzf-open.**
+
 # Fuzzy find and open files in vis
 
 Use [fzf](https://github.com/junegunn/fzf) to open files in [vis](https://github.com/martanne/vis).
